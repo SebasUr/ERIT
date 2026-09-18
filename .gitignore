@@ -1,0 +1,19 @@
+# data never goes to git (the dataset is 2.7 GB)
+data/
+results/
+out/
+*.zip
+*.7z
+*.mat
+*.avi
+
+# python
+__pycache__/
+*.egg-info/
+.venv/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# os / editors
+.DS_Store
+*.asv
