@@ -32,7 +32,7 @@ def read_complex_field(file_path, wavelength, pixel_size, magnification,
             raise KeyError(
                 f"'{field_key}' not found in file. Available keys: {data_keys}"
             )
-            complex_field = np.asarray(mat[field_key]).astype(np.complex128)
+        complex_field = np.asarray(mat[field_key]).astype(np.complex128)
 
     else:
         # 1. A variable that is already a 2D complex array

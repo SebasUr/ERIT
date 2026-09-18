@@ -69,6 +69,10 @@ def extract_rbc_geometry(labeled_mask, dxy):
             "y_max": int(max_row),
         }
 
+        # Cells cut by the image border have wrong area/diameter/volume
+        touches_border = bool(min_row == 0 or min_col == 0
+                              or max_row == labeled_mask.shape[0] or max_col == labeled_mask.shape[1])
+
         bbox_um = {
             "x_min": float(min_col * dxy),
             "y_min": float(min_row * dxy),
@@ -99,6 +103,7 @@ def extract_rbc_geometry(labeled_mask, dxy):
 
             "bbox_px": bbox_px,
             "bbox_um": bbox_um,
+            "touches_border": touches_border,
         })
 
     # Area statistics for this hologram

@@ -41,6 +41,7 @@ def build_hologram_result(source_file, parameters, segmentation_result, geometry
                 "orientation_deg": geometry["orientation_deg"],
                 "bbox_px": geometry["bbox_px"],
                 "bbox_um": geometry["bbox_um"],
+                "touches_border": geometry.get("touches_border"),
             }
 
         # Phase
@@ -132,6 +133,7 @@ def hologram_json_to_dataframe(json_path):
             "Major_Axis_um": geometry.get("major_axis_um"),
             "Minor_Axis_um": geometry.get("minor_axis_um"),
             "Orientation_deg": geometry.get("orientation_deg"),
+            "Touches_Border": geometry.get("touches_border"),
             "Delta_Phase_1_rad": phase.get("delta_phase_1_rad"),
             "Delta_Phase_2_rad": phase.get("delta_phase_2_rad"),
             "Delta_Phase_rad": phase.get("delta_phase_rad"),

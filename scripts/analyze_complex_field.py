@@ -12,13 +12,14 @@ ap.add_argument("--wavelength", type=float, default=0.632, help="um")
 ap.add_argument("--pixel-size", type=float, default=3.75, help="camera pixel, um")
 ap.add_argument("--magnification", type=float, default=40)
 ap.add_argument("--delta-n", type=float, default=0.083)
+ap.add_argument("--phase-mode", default="quantitative", choices=["quantitative", "legacy_wrapped"])
 ap.add_argument("--out", default="results")
 ap.add_argument("--show", action="store_true")
 a = ap.parse_args()
 
 result, df, json_path, csv_path = analyze_complex_field(
     a.mat, a.wavelength, a.pixel_size, a.magnification,
-    processing={"delta_n": a.delta_n}, output_directory=a.out, show=a.show)
+    processing={"delta_n": a.delta_n, "phase_mode": a.phase_mode}, output_directory=a.out, show=a.show)
 print(df)
 print(result["statistics"])
 print("saved:", json_path, csv_path)

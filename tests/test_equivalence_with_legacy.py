@@ -31,10 +31,11 @@ def test_pipeline_matches_legacy_main(legacy, synthetic_field, tmp_path):
     mat_path, _ = synthetic_field
 
     df_legacy, res_legacy = run_legacy_main(fha, dm, mat_path, tmp_path / "legacy")
-    res_new, df_new, json_path, _ = analyze_complex_field(mat_path, **PARAMS, output_directory=tmp_path / "new")
+    res_new, df_new, json_path, _ = analyze_complex_field(mat_path, **PARAMS, output_directory=tmp_path / "new",
+                                                          processing={"phase_mode": "legacy_wrapped"})
 
     assert len(df_new) == len(df_legacy) > 0
-    np.testing.assert_array_equal(df_new.to_numpy(dtype=float), df_legacy.to_numpy(dtype=float))
+    np.testing.assert_array_equal(df_new[df_legacy.columns].to_numpy(dtype=float), df_legacy.to_numpy(dtype=float))
     assert res_new["statistics"] == res_legacy["statistics"]
     assert json.load(open(json_path))["summary"] == res_legacy["summary"]
 

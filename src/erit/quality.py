@@ -38,10 +38,16 @@ def find_corresponding_complex_field(phase_filename, folder):
     Phase image:
     phase_000003_Hologram_video45_frame_000003.png
 
-    Corresponding complex field:
-    complex_field_000003_phase_000003_Hologram_video45_frame_000003.mat
+    Corresponding complex field (as written by legacy/VortexLegendre/main.m):
+    complex_field_000003_Hologram_video45_frame_000003.mat
+
+    The legacy version required the .mat name to end with the full phase name
+    ("phase_000003_..."), which never happens with main.m names, so the .mat was
+    never moved. Both naming styles are accepted here.
     """
     phase_name_without_extension = os.path.splitext(phase_filename)[0]
+    core = phase_name_without_extension[len("phase_"):] if phase_name_without_extension.startswith("phase_") \
+        else phase_name_without_extension
 
     for candidate_filename in os.listdir(folder):
         candidate_path = os.path.join(folder, candidate_filename)
@@ -55,7 +61,8 @@ def find_corresponding_complex_field(phase_filename, folder):
         candidate_name_without_extension = os.path.splitext(candidate_filename)[0]
 
         # Verify that the complex-field filename ends with the complete phase-image name
-        if candidate_name_without_extension.endswith(phase_name_without_extension):
+        if (candidate_name_without_extension.endswith(phase_name_without_extension)
+                or candidate_name_without_extension == f"complex_field_{core}"):
             return candidate_filename
 
     return None
