@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "erit"
+version = "0.1.0"
+description = "Quantitative red blood cell analysis with digital holographic microscopy (EAFIT Applied Optics Group)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "scipy",
+    "pandas",
+    "matplotlib",
+    "opencv-python",
+    "scikit-image>=0.26",   # segment_rbc uses remove_small_objects(max_size=...)
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
